@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const userSchema=new mongoose.Schema(
     {
@@ -26,5 +27,18 @@ const userSchema=new mongoose.Schema(
     {timestamps:true}
 );
 
+userSchema.pre("save",async(next)=>{
+    if(!this.isModified('password')){
+       return next();
+    }
+    const saltRounds=10;
+    this.password=bcrypt.hash(this.password,saltRounds);
+    console.log(this.password);
+    next();
+    
+});
+userSchema.methods.comparePassowrd=async function(candPassword){
+    return await bcrypt.compare(candPassword,this.password);
+}
 const User=mongoose.model("User",userSchema);
 export default User;//exporting user model
