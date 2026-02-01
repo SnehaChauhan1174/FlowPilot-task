@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
-import user from "./models/user.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config(); 
 
@@ -24,6 +24,8 @@ connectDB();//mongodb connected
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+app.use('/auth',authRoutes);
+
 
 const port=process.env.PORT;
 app.listen(port, () => {

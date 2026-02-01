@@ -27,18 +27,18 @@ const userSchema=new mongoose.Schema(
     {timestamps:true}
 );
 
-userSchema.pre("save",async(next)=>{
+userSchema.pre("save",async function(){
     if(!this.isModified('password')){
        return next();
     }
     const saltRounds=10;
-    this.password=bcrypt.hash(this.password,saltRounds);
+    this.password=await bcrypt.hash(this.password,saltRounds);
     console.log(this.password);
-    next();
+   
     
 });
 userSchema.methods.comparePassowrd=async function(candPassword){
     return await bcrypt.compare(candPassword,this.password);
 }
-const User=mongoose.model("User",userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default User;//exporting user model
