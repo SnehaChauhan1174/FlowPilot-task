@@ -1,5 +1,6 @@
 import { useState } from "react";
 import '../../style/user/Register.css';
+import { FaUser,FaEnvelope , FaLock} from "react-icons/fa";
 
 function Register(){
     const[form, setForm]=useState({
@@ -25,24 +26,30 @@ function Register(){
     }
     return(
         <div className="register-component">
-            <h2>Register</h2>
+            <div className="header">
+                <h>FlowPilot</h>
+            </div>
+            
             <form onSubmit={handleSubmit} className="register-form">
-                <input name="name"
-                 placeholder="Enter name"
-                 onChange={handleChange}>
-                </input>
+                <h2>Register</h2>
+                <div className="input-container">
+                    <div className="input-wrapper">
+                        <FaUser className="icon" />
+                        <input className="form-input" name="name" placeholder="Enter name" onChange={handleChange}></input>
+                    </div>
+                    <br></br>
+                    <div className="input-wrapper">
+                        <FaEnvelope className="icon" />
+                        <input className="form-input" name="email" placeholder="Enter email" onChange={handleChange}></input>
+                    </div>
+                    <br></br>
+                    <div className="input-wrapper">
+                        <FaLock className="icon" />
+                        <input className="form-input" name="password" placeholder="Enter password" onChange={handleChange}></input>
+                    </div>
+                </div>
                 <br></br>
-                <input name="email"
-                 placeholder="Enter email"
-                 onChange={handleChange}>
-                </input>
-                <br></br>
-                <input name="password"
-                 placeholder="Enter password"
-                 onChange={handleChange}>
-                </input>
-                <br></br>
-                <button type="submit">Register</button>
+                <button className="submit-btn" type="submit">Sign Up</button>
             </form>
         </div>
       
