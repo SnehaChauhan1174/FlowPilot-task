@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { FaUser,FaEnvelope , FaLock} from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import '../../style/user/Login.modules.css';
 
 function Login(){
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ function Login(){
         password:'',
     });
 
-    const handleChange=(e)=>{
+    const handleChange = (e)=>{
         setFormData({...formData,[e.target.name]:e.target.value}); 
     }
     const handleSubmit = async(e)=>{
@@ -23,29 +24,32 @@ function Login(){
         })
         const data = await res.json();
         alert(data.message);
-        if(data.message=="login successful"){
+        
+        if(data.accessToken){
+            localStorage.setItem("accessToken",data.accessToken);
+            localStorage.setItem("refreshToken",data.refreshToken);
             navigate("/",{replace:true});
         }
         
     }
     return(
-        <div className="login-component">
-            <div className="header">
+        <div className = "login-component">
+            <div className = "header">
                 <h>FlowPilot</h>
             </div>
             <form onSubmit = {handleSubmit} className="login-form">
                 <h2>Login</h2>
-                <div className="input-container">
-                    <div className="input-wrapper">
-                        <FaEnvelope className="icon" />
-                        <input className="form-input" name="email" placeholder="Enter email" 
+                <div className = "input-container">
+                    <div className = "input-wrapper">
+                        <FaEnvelope className = "icon" />
+                        <input className ="form-input" name="email" placeholder="Enter email" 
                                onChange={handleChange}></input>
                     </div>
                     <br></br>
-                    <div className="input-wrapper">
-                        <FaLock className="icon" />
-                        <input className="form-input" name="password" placeholder="Enter password" 
-                               onChange={handleChange}></input>
+                    <div className = "input-wrapper">
+                        <FaLock className = "icon" />
+                        <input className = "form-input" name="password" placeholder="Enter password" 
+                               onChange = {handleChange}></input>
                     </div>
                 </div>
                 <br></br>
